@@ -235,8 +235,7 @@ export default function Home() {
                 src='/benefit-img.png'
                 alt="benefit-img"
                 fill
-                className="object-cover  rounded-lg"
-                sizes="100vw"
+                className="object-cover rounded-lg"
               />
             </div>
           </div>
