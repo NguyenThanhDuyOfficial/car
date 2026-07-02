@@ -32,6 +32,7 @@ Thumbs.db
 # Database
 **/*.sqlite
 **/*.db
+**/migrations
 
 # Test coverage
 **/coverage/

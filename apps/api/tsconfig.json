@@ -4,7 +4,14 @@
     "moduleResolution": "bundler",
     "resolvePackageJsonExports": true,
     "strict": true,
-    "ignoreDeprecations": "6.0",
+    "paths": {
+      "@car/shared": [
+        "../../packages/shared/src"
+      ],
+      "@car/shared/*": [
+        "../../packages/shared/src/*"
+      ]
+    },
     "esModuleInterop": true,
     "isolatedModules": true,
     "declaration": true,
