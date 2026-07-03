@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './modules/auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './prisma/prisma.module';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [AuthModule, PrismaModule,
@@ -11,6 +12,7 @@ import { PrismaModule } from './prisma/prisma.module';
       isGlobal: true,
       envFilePath: "./.env",
     }),
+    UsersModule,
 
   ],
   controllers: [AppController],
