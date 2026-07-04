@@ -1,21 +1,20 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Req, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiResponseProperty, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
-import { RoleGuard } from 'src/common/guards/role.guard';
+import { RolesGuard } from 'src/common/guards/roles.guard';
 import { UsersService } from './users.service';
 import type { RequestWithUser } from 'src/common/interfaces/request-with-user.interface';
 import { UserResponseDto } from './dto/user-response.dto';
 import { Roles } from 'src/common/decorators/roles.decorator';
 import { Role } from 'src/generated/prisma/enums';
-import { User } from 'src/generated/prisma/client';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { GetUser } from 'src/common/decorators/get-user.decorator';
 import { ChangePasswordDto } from './dto/change-password.dto';
 
 
-@ApiTags('users')
+@ApiTags('Users')
 @ApiBearerAuth("JWT-auth")
-@UseGuards(JwtAuthGuard, RoleGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) { }

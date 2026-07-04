@@ -17,6 +17,12 @@ export class UserResponseDto {
   @ApiProperty({ description: 'User role', enum: Role })
   role!: Role
 
+  @ApiProperty({ description: 'User phone', example: '98994573847' })
+  phone?: number
+
+  @ApiProperty({ description: "User avatar url", example: "example.com/images/avatar" })
+  avatarUrl?: string
+
   @ApiProperty({ description: 'Account creation date', example: '2023-10-01T12:35:56.789Z' })
   createdAt?: Date
 

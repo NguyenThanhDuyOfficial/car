@@ -138,9 +138,11 @@ model Review {
 enum OrderStatus {
   PENDING
   PAID
-  CANCELED
+  CANCELLED
   REFUNDED
   COMPLETED
+  ACTIVE
+  PROCESSING
 }
 
 model Order {
@@ -155,14 +157,14 @@ model Order {
   actualPickupTime  DateTime?
   actualDropoffTime DateTime?
 
-  dailyPrice      Decimal @db.Decimal(15, 2)
-  carInsurance    Decimal @db.Decimal(15, 2)
-  renterInsurance Decimal @db.Decimal(15, 2)
-  overLimitFee    Decimal @db.Decimal(15, 2)
-  overTimeFee     Decimal @db.Decimal(15, 2)
-  cleaningFee     Decimal @db.Decimal(15, 2)
-  deodorizingFee  Decimal @db.Decimal(15, 2)
-  totalAmount     Decimal @db.Decimal(15, 2)
+  dailyPrice      Decimal  @db.Decimal(15, 2)
+  carInsurance    Decimal  @db.Decimal(15, 2)
+  renterInsurance Decimal  @db.Decimal(15, 2)
+  overLimitFee    Decimal? @db.Decimal(15, 2)
+  overTimeFee     Decimal? @db.Decimal(15, 2)
+  cleaningFee     Decimal? @db.Decimal(15, 2)
+  deodorizingFee  Decimal? @db.Decimal(15, 2)
+  totalAmount     Decimal  @db.Decimal(15, 2)
 
   status OrderStatus @default(PENDING)
 
@@ -196,14 +198,14 @@ model Payment {
   orderId String
   order   Order  @relation(fields: [orderId], references: [id])
 
-  paymentMethod String
-  paymentType   String
+  paymentMethod String?
 
-  amount         Decimal       @db.Decimal(15, 2)
-  transationCode String
-  status         PaymentStatus @default(PENDING)
-  paymentDate    DateTime
+  amount        Decimal       @db.Decimal(15, 2)
+  transactionId String?
+  status        PaymentStatus @default(PENDING)
+  paymentDate   DateTime?
 
+  createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([userId])
