@@ -5,7 +5,6 @@ import { CarStatus, FuelType, Transmission } from "src/generated/prisma/enums";
 export class QueryCarDto {
   @ApiPropertyOptional({
     description: 'Filter by OwnerId',
-    example: '23424er548-34598e'
   })
   @IsString()
   @IsOptional()
@@ -13,7 +12,6 @@ export class QueryCarDto {
 
   @ApiPropertyOptional({
     description: 'Search by title (partial match)',
-    example: 'Toyota Camry'
   })
   @IsString()
   @IsOptional()
@@ -21,7 +19,6 @@ export class QueryCarDto {
 
   @ApiPropertyOptional({
     description: 'Filter by brand',
-    example: 'Toyota'
   })
   @IsString()
   @IsOptional()
@@ -29,7 +26,6 @@ export class QueryCarDto {
 
   @ApiPropertyOptional({
     description: 'Filter by model',
-    example: 'Camry'
   })
   @IsString()
   @IsOptional()
@@ -38,7 +34,6 @@ export class QueryCarDto {
   @ApiPropertyOptional({
     description: 'Filter by transmission type',
     enum: Transmission,
-    example: Transmission.AUTOMATIC
   })
   @IsEnum(Transmission)
   @IsOptional()
@@ -47,7 +42,6 @@ export class QueryCarDto {
   @ApiPropertyOptional({
     description: 'Filter by fuel type',
     enum: FuelType,
-    example: FuelType.GASOLINE
   })
   @IsEnum(FuelType)
   @IsOptional()
@@ -56,7 +50,6 @@ export class QueryCarDto {
   @ApiPropertyOptional({
     description: 'Filter by status',
     enum: CarStatus,
-    example: CarStatus.AVAILABLE
   })
   @IsEnum(CarStatus)
   @IsOptional()
@@ -64,7 +57,6 @@ export class QueryCarDto {
 
   @ApiPropertyOptional({
     description: 'Filter by pickup location (partial match)',
-    example: 'Ho Chi Minh'
   })
   @IsString()
   @IsOptional()
@@ -72,7 +64,6 @@ export class QueryCarDto {
 
   @ApiPropertyOptional({
     description: 'Minimum daily price',
-    example: 500000
   })
   @IsNumber()
   @Min(0)
@@ -81,7 +72,6 @@ export class QueryCarDto {
 
   @ApiPropertyOptional({
     description: 'Maximum daily price',
-    example: 2000000
   })
   @IsNumber()
   @Min(0)
@@ -90,7 +80,6 @@ export class QueryCarDto {
 
   @ApiPropertyOptional({
     description: 'Minimum seat count',
-    example: 4
   })
   @IsNumber()
   @Min(1)
@@ -99,7 +88,6 @@ export class QueryCarDto {
 
   @ApiPropertyOptional({
     description: 'Maximum seat count',
-    example: 7
   })
   @IsNumber()
   @Min(1)
@@ -129,7 +117,6 @@ export class QueryCarDto {
 
   @ApiPropertyOptional({
     description: 'Sort field',
-    example: 'dailyPrice',
     enum: ['createdAt', 'dailyPrice', 'title', 'brand']
   })
   @IsString()
@@ -138,7 +125,6 @@ export class QueryCarDto {
 
   @ApiPropertyOptional({
     description: 'Sort order',
-    example: 'desc',
     enum: ['asc', 'desc']
   })
   @IsString()

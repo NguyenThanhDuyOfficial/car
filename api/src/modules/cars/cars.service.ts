@@ -114,7 +114,6 @@ export class CarsService {
       }),
       this.prisma.car.count({ where })
     ])
-
     const data = cars.map(car => {
       const plainCar = {
         ...car,

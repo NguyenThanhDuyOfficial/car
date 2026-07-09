@@ -1,8 +1,15 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProcessingResponse, ApiProperty } from "@nestjs/swagger";
 import { Expose } from "class-transformer";
 import { CarStatus, FuelType, Transmission } from "src/generated/prisma/enums";
 
 export class CarResponseDto {
+  @ApiProperty({
+    description: "Car image url",
+    example: "https://images.unsplash.com/imageurl"
+  })
+  @Expose()
+  imageUrl?: string | null
+
   @ApiProperty({ description: 'Car unique identifier', example: '550e8400-e29b-41d4-a716-446655440000' })
   @Expose()
   id!: string;

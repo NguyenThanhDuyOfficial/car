@@ -8,7 +8,7 @@ export function useAuth() {
   const [error, setError] = useState<string | null>(null)
 
   return {
-    use: authState.user,
+    user: authState.user,
     isAuthenticated: authState.isAuthenticated,
     isLoading,
     error

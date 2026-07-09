@@ -39,7 +39,6 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  reviews   Review[]
 
   @@index([email])
 }
@@ -74,15 +73,13 @@ model Car {
   transmission Transmission
   fuelType     FuelType
 
-  carFeatures CarFeature[]
-  images      Image[]
+  imageUrl String?
 
   status         CarStatus @default(AVAILABLE)
   pickupLocation String
   dailyPrice     Decimal   @db.Decimal(10, 2)
 
-  orders  Order[]
-  reviews Review[]
+  orders Order[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -90,49 +87,6 @@ model Car {
   @@index([status])
   @@index([pickupLocation])
   @@index([dailyPrice])
-}
-
-model Image {
-  id  String @id @default(cuid())
-  url String
-
-  car   Car?    @relation(fields: [carId], references: [id])
-  carId String?
-}
-
-model Feature {
-  id    String @id @default(cuid())
-  title String @unique
-
-  carFeatures CarFeature[]
-}
-
-model CarFeature {
-  carId String
-  car   Car    @relation(fields: [carId], references: [id], onDelete: Cascade)
-
-  featureId String
-  feature   Feature @relation(fields: [featureId], references: [id], onDelete: Cascade)
-
-  @@id([carId, featureId])
-  @@index([carId])
-  @@index([featureId])
-}
-
-model Review {
-  id     String @id @default(cuid())
-  userId String
-  user   User   @relation(fields: [userId], references: [id])
-  carId  String
-  car    Car    @relation(fields: [carId], references: [id])
-
-  title     String
-  rating    Int      @default(0)
-  comment   String?
-  createdAt DateTime @default(now())
-
-  @@index([carId])
-  @@index([rating])
 }
 
 enum OrderStatus {
@@ -180,7 +134,6 @@ model Order {
   @@index([userId])
   @@index([carId])
   @@index([status])
-  @@map("orders")
 }
 
 enum PaymentStatus {

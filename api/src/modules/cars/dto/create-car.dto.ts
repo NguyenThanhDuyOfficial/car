@@ -5,7 +5,13 @@ import { IsArray, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength,
 import { CarStatus, FuelType, Transmission } from "src/generated/prisma/enums";
 
 export class CreateCarDto {
-  // ===== REQUIRED FIELDS =====
+  @ApiProperty({
+    description: "Image Url",
+    example: "https://images.unsplash.com/photo-1619767886558-efdc259cde1a?q=80&w=871&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  })
+  @IsString()
+  @IsOptional()
+  imageUrl?: string
 
   @ApiProperty({
     description: 'Car title',
@@ -131,11 +137,4 @@ export class CreateCarDto {
     message: 'Status must be AVAILABLE, RENTED, MAINTENANCE, or UNAVAILABLE',
   })
   status?: CarStatus = CarStatus.AVAILABLE;
-
-  // ===== VALIDATION HELPERS =====
-
-
-  /**
-   * Validate that if license plate is provided, it follows format
-   */
 }

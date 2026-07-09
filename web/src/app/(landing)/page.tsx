@@ -1,5 +1,6 @@
 'use client'
 import Footer from "@/components/modules/landing/Footer";
+import Form from "next/form"
 import Header from "@/components/modules/landing/Header";
 import Image from "next/image";
 import { MapPinIcon, ChevronDownIcon, CalendarDaysIcon } from 'lucide-react'
@@ -11,6 +12,10 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible"
+function searchCars(formData: FormData) {
+  console.log(formData)
+
+}
 export default function Home() {
 
   const brandIcons = [
@@ -88,47 +93,82 @@ export default function Home() {
             </div>
 
             {/* Search */}
-            <div className="bg-white mt-8 rounded-lg p-4 flex items-center flex-col gap-4 w-full max-w-100 md:max-w-lg">
-              <div className="flex items-center gap-4 border-2 border-zinc-300 rounded-lg w-full p-4 ">
+
+            <Form
+              action="/cars"
+              className="flex flex-col gap-4 bg-white mt-8 p-4 rounded-lg w-full max-w-100 md:max-w-lg"
+            >
+              <div className="flex items-center gap-4 border-2 border-zinc-30 rounded-lg p-4">
                 <MapPinIcon />
-                <div className="flex flex-col gap-2">
-                  <p className="text-[0.875rem] text-zinc-500">Pick-up location</p>
-                  <button className="text-left underline">Singapore</button>
+                <div className="flex flex-col">
+                  <label
+                    htmlFor="pickup-location"
+                    className="text-[0.875rem] text-zinc-500"
+                  >Pickup Location</label>
+                  <input
+                    name="pickup-location"
+                    placeholder="Enter location here"
+                  />
                 </div>
-                <div className="hidden ml-auto md:block">
-                  <Button className="bg-zinc-300 text-black">+ Drop off at different location</Button>
-                </div>
+
               </div>
-              <div className="flex justify-between w-full">
-                <div className="hidden border-2 border-zinc-300 rounded-lg p-4 md:block">
-                  <div className="flex items-center gap-4">
-                    <CalendarDaysIcon />
-                    <div className="flex flex-col gap-2">
-                      <p className="text-[0.875rem] text-zinc-500">Pick-up date</p>
-                      <button className="text-left underline">Jun 20,2026</button>
-                    </div>
-                    <div className="flex flex-col gap-2">
-                      <p className="text-[0.875rem] text-zinc-500">Time</p>
-                      <button className="text-left underline">10:00</button>
-                    </div>
-                  </div>
-                </div>
-                <div className="hidden border-2 border-zinc-300 rounded-lg p-4 md:block">
-                  <div className="flex items-center gap-4">
-                    <CalendarDaysIcon />
-                    <div className="flex flex-col gap-2">
-                      <p className="text-[0.875rem] text-zinc-500">Pick-up date</p>
-                      <button className="text-left underline">Jun 20,2026</button>
-                    </div>
-                    <div className="flex flex-col gap-2">
-                      <p className="text-[0.875rem] text-zinc-500">Time</p>
-                      <button className="text-left underline">10:00</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <Button className="bg-blue-400">Search</Button>
-            </div>
+              <Button
+                type="submit"
+                className="bg-blue-400 hover:bg-blue-500 active:bg-blue-600"
+              >Search Cars</Button>
+            </Form>
+
+            {/* <form */}
+            {/*   action={searchCar} */}
+            {/*   className="bg-white mt-8 rounded-lg p-4 flex items-center flex-col gap-4 w-full max-w-100 md:max-w-lg"> */}
+            {/*   <div className="flex items-center gap-4 border-2 border-zinc-300 rounded-lg w-full p-4 "> */}
+            {/*     <MapPinIcon /> */}
+            {/*     <div className="flex flex-col gap-2"> */}
+            {/*       <label */}
+            {/*         htmlFor="pickup-location" */}
+            {/*         className="text-[0.875rem] text-zinc-500">Pick-up location</label> */}
+            {/*       <input */}
+            {/*         className="text-left underline" */}
+            {/*         name="pickup-location" */}
+            {/*         placeholder="Singapore" */}
+            {/*       /> */}
+            {/*     </div> */}
+            {/*     {/* <div className="hidden ml-auto md:block"> */}
+            {/*     {/*   <Button className="bg-zinc-300 text-black">+ Drop off at different location</Button> */}
+            {/*     {/* </div> */}
+            {/*   </div> */}
+            {/*   <div className="grid grid-cols-2 gap-4 md:block"> */}
+            {/*     <div className="border-2 border-zinc-300 rounded-lg p-4 "> */}
+            {/*       <div className="flex items-center gap-4"> */}
+            {/*         <CalendarDaysIcon /> */}
+            {/*         <div className="flex flex-col gap-2"> */}
+            {/*           <p className="text-[0.875rem] text-zinc-500">Pick-up date</p> */}
+            {/*           <button className="text-left underline">Jun 20,2026</button> */}
+            {/*         </div> */}
+            {/*         <div className="flex flex-col gap-2"> */}
+            {/*           <p className="text-[0.875rem] text-zinc-500">Time</p> */}
+            {/*           <button className="text-left underline">10:00</button> */}
+            {/*         </div> */}
+            {/*       </div> */}
+            {/*     </div> */}
+            {/*     <div className="border-2 border-zinc-300 rounded-lg p-4"> */}
+            {/*       <div className="flex items-center gap-4"> */}
+            {/*         <CalendarDaysIcon /> */}
+            {/*         <div className="flex flex-col gap-2"> */}
+            {/*           <p className="text-[0.875rem] text-zinc-500">Pick-up date</p> */}
+            {/*           <button className="text-left underline">Jun 20,2026</button> */}
+            {/*         </div> */}
+            {/*         <div className="flex flex-col gap-2"> */}
+            {/*           <p className="text-[0.875rem] text-zinc-500">Time</p> */}
+            {/*           <button className="text-left underline">10:00</button> */}
+            {/*         </div> */}
+            {/*       </div> */}
+            {/*     </div> */}
+            {/*   </div> */}
+            {/*   <Button */}
+            {/*     type="submit" */}
+            {/*     className="bg-blue-400">Search</Button> */}
+            {/* </form> */}
           </div>
         </section>
 

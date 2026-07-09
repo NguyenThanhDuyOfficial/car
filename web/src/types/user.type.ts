@@ -8,7 +8,6 @@ export type User = {
   avatarUrl: string | null;
   isActive: boolean;
   role: Role;
-  refreshToken: string | null;
   createdAt: string;
   updatedAt: string;
 }
