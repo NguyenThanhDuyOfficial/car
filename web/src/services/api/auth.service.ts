@@ -1,6 +1,15 @@
+import { AuthResponse, ErrorResponse, LoginParams, RegisterParams } from "@/types/auth.type"
 import { apiClient } from "./axios.config"
 
-export const authService = {
+export const AuthService = {
+  login: async (params: LoginParams): Promise<AuthResponse> => {
+    const response = await apiClient.post<AuthResponse>('/auth/login', params)
+    return response.data
+  },
+  register: async (params: RegisterParams): Promise<AuthResponse> => {
+    const response = await apiClient.post<AuthResponse>('/auth/register', params)
+    return response.data
+  },
   logout: async (): Promise<void> => {
     try {
       await apiClient.post("/auth/logout")

@@ -2,6 +2,20 @@ import { ApiProcessingResponse, ApiProperty } from "@nestjs/swagger";
 import { Expose } from "class-transformer";
 import { CarStatus, FuelType, Transmission } from "src/generated/prisma/enums";
 
+export class OwnerDto {
+  @ApiProperty({ description: 'Owner email', example: 'owner@gmail.com' })
+  @Expose()
+  email!: string;
+
+  @ApiProperty({ description: 'Owner first name', example: 'John' })
+  @Expose()
+  firstName!: string;
+
+  @ApiProperty({ description: 'Owner last name', example: 'Doe' })
+  @Expose()
+  lastName!: string;
+}
+
 export class CarResponseDto {
   @ApiProperty({
     description: "Car image url",
@@ -69,4 +83,11 @@ export class CarResponseDto {
   @ApiProperty({ description: 'Last update timestamp', example: '2026-07-03T10:00:00Z' })
   @Expose()
   updatedAt!: Date;
+
+  @ApiProperty({
+    description: 'Owner information',
+    type: OwnerDto
+  })
+  @Expose()
+  owner?: OwnerDto;
 }

@@ -12,10 +12,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible"
-function searchCars(formData: FormData) {
-  console.log(formData)
-
-}
+import { useState, } from "react";
 export default function Home() {
 
   const brandIcons = [
@@ -100,16 +97,14 @@ export default function Home() {
             >
               <div className="flex items-center gap-4 border-2 border-zinc-30 rounded-lg p-4">
                 <MapPinIcon />
-                <div className="flex flex-col">
+                <div className="w-full flex flex-col">
                   <label
                     htmlFor="pickup-location"
                     className="text-[0.875rem] text-zinc-500"
                   >Pickup Location</label>
-                  <input
-                    name="pickup-location"
-                    placeholder="Enter location here"
-                  />
+                  <p>TP.Ho Chi Minh</p>
                 </div>
+
 
               </div>
               <Button

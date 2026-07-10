@@ -25,7 +25,11 @@ export interface Car {
   dailyPrice: number;
   createdAt: Date;
   updatedAt: Date;
-
+  owner: {
+    email: string;
+    firstName: string;
+    lastName: string;
+  };
 }
 export interface CarQueryParams {
   page?: number,

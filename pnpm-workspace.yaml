@@ -1,0 +1,11 @@
+packages:
+  - "api"
+  - "web"
+allowBuilds:
+  '@parcel/watcher': true
+  '@prisma/engines': true
+  '@scarf/scarf': true
+  bcrypt: true
+  prisma: true
+  sharp: true
+  unrs-resolver: true

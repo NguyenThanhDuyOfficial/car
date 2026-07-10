@@ -111,6 +111,19 @@ export class CarsService {
         skip,
         take: limit,
         orderBy,
+        include: {
+          owner: {
+            select: {
+              email: true,
+              firstName: true,
+              lastName: true,
+              phone: true,
+              avatarUrl: true,
+              refreshToken: false,
+              password: false
+            }
+          }
+        }
       }),
       this.prisma.car.count({ where })
     ])
@@ -137,7 +150,20 @@ export class CarsService {
 
   async findOne(id: string): Promise<CarResponseDto> {
     const car = await this.prisma.car.findUnique({
-      where: { id: id }
+      where: { id: id },
+      include: {
+        owner: {
+          select: {
+            email: true,
+            firstName: true,
+            lastName: true,
+            phone: true,
+            avatarUrl: true,
+            refreshToken: false,
+            password: false
+          }
+        }
+      }
     })
     if (!car) {
       throw new NotFoundException("Car not found")

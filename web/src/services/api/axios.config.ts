@@ -1,10 +1,11 @@
 import { store } from "@/store";
 import { clearAuth, setAccessToken } from "@/store/slices/authSlice";
 import axios from "axios";
-import { authService } from "./auth.service";
+import { AuthService } from "./auth.service";
 
 export const apiClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
+  withCredentials: true,
   headers: {
     "Content-Type": "application/json"
   },
@@ -36,7 +37,7 @@ apiClient.interceptors.request.use(
       const refreshToken = state.auth.refreshToken
 
       if (refreshToken) {
-        const newAccessToken = await authService.refreshToken(refreshToken)
+        const newAccessToken = await AuthService.refreshToken(refreshToken)
         if (newAccessToken) {
           store.dispatch(setAccessToken(newAccessToken))
           originalRequest.headers.Authorization = `Bearer ${newAccessToken}`

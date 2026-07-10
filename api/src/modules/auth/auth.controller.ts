@@ -1,4 +1,4 @@
-import { BadRequestException, ConflictException, Controller, Get, HttpCode, HttpStatus, Post, Body, UseGuards } from '@nestjs/common';
+import { BadRequestException, ConflictException, Controller, Get, HttpCode, HttpStatus, Post, Body, UseGuards, Res } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { AuthResponseDto } from './dto/auth-response.dto';
@@ -7,6 +7,7 @@ import { GetUser } from 'src/common/decorators/get-user.decorator';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { LoginDto } from './dto/login.dto';
 import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import type { Response } from 'express';
 
 @Controller('auth')
 export class AuthController {
@@ -35,8 +36,15 @@ export class AuthController {
     status: 429,
     description: 'Too many requests. Rate limit exceeded'
   })
-  async register(@Body() registerDto: RegisterDto): Promise<AuthResponseDto> {
-    return await this.authService.register(registerDto)
+  async register(@Body() registerDto: RegisterDto, @Res({ passthrough: true }) res: Response): Promise<AuthResponseDto> {
+    const result = await this.authService.register(registerDto)
+    res.cookie('refreshToken', result.refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: Number(process.env.REFRESH_TOKEN_MAX_AGE)
+    })
+    return result
   }
 
   @Post('refresh')
@@ -108,7 +116,14 @@ export class AuthController {
     status: 429,
     description: 'Too many requests. Rate limit exceeded'
   })
-  async login(@Body() loginDto: LoginDto): Promise<AuthResponseDto> {
-    return await this.authService.login(loginDto)
+  async login(@Body() loginDto: LoginDto, @Res({ passthrough: true }) res: Response): Promise<AuthResponseDto> {
+    const result = await this.authService.login(loginDto)
+    res.cookie('refreshToken', result.refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: Number(process.env.REFRESH_TOKEN_MAX_AGE)
+    })
+    return result
   }
 }

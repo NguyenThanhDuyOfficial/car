@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { CarQueryParams } from "@/types/car.type";
 import { CarService } from "@/services/api/car.service";
-import { useCars } from "@/hooks/useCars";
+import { useCars } from "@/hooks/useCar";
 import { useEffect, useState } from "react"
 
 export default function CarsPage() {
@@ -27,7 +27,7 @@ export default function CarsPage() {
       <main>
         <div className="bg-zinc-100 grid p-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {cars.map((car, index) => (
-            <Link key={index} href="/id" className="w-full block bg-white rounded-lg max-w-lg">
+            <Link key={index} href={`cars/${car.id}`} className="w-full block bg-white rounded-lg max-w-lg" >
               <div className="p-4 flex flex-col gap-2">
                 <div className="relative h-48 w-full">
                   <Image

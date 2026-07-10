@@ -1,8 +1,11 @@
 import Link from 'next/link'
 import { Button } from "@/components/ui/button"
 import { useEffect, useState } from 'react'
+import { useAuth } from '@/hooks/useAuth'
+import { UserIcon } from 'lucide-react'
 export default function Header() {
   const [isScrolled, setIsScolled] = useState(false)
+  const { user } = useAuth()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -14,19 +17,22 @@ export default function Header() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+  useEffect(() => {
+    console.log('User updated:', user)
+  }, [user])
   return (
     <header className={`fixed top-0 left-0 z-100 w-full p-4 ${isScrolled
       ? "bg-white/95 backdrop-blur-sm shadow-md"
       : 'bg-transparent'
       }`}
     >
-      {/* container */}
       < div className="w-full h-full flex items-center justify-between" >
-        {/* logo */}
         < Link href="/" className="font-bold text-orange-400 text-4xl" > car.</Link >
-        {/* icons */}
-        {/* login */}
-        <Button variant="default">Sign In</Button>
+        {user ?
+          <UserIcon className={` ${isScrolled ? "text-black" : "text-white"}`} />
+          :
+          <Button variant="outline"> <Link href="/auth/login">Login</Link></Button>
+        }
       </div >
     </header >
   )

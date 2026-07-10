@@ -1,6 +1,5 @@
 import { CarsState } from "@/types/car.type";
 import { createSlice } from "@reduxjs/toolkit";
-import { Car } from "lucide-react";
 
 
 const initialState: CarsState = {
@@ -9,7 +8,12 @@ const initialState: CarsState = {
 const carsSlice = createSlice({
   name: 'cars',
   initialState,
-  reducers: {}
+  reducers: {
+
+    setCars(state, action) {
+      state.cars = action.payload
+    },
+  }
 })
-export const { } = carsSlice.actions
+export const { setCars } = carsSlice.actions
 export default carsSlice.reducer
