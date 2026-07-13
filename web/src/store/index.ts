@@ -4,6 +4,7 @@ import createWebStorage from "redux-persist/es/storage/createWebStorage";
 import { useDispatch } from 'react-redux';
 import authReducer from "./slices/authSlice"
 import carReducer from "./slices/carSlice"
+import orderReducer from "./slices/orderSlice"
 
 
 const createNoopStorage = () => {
@@ -22,7 +23,8 @@ const createNoopStorage = () => {
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  car: carReducer
+  car: carReducer,
+  order: orderReducer
 })
 const storage = typeof window !== 'undefined' ? createWebStorage("local") : createNoopStorage()
 const persistConfig = {

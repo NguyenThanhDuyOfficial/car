@@ -55,6 +55,23 @@ export function useAuth() {
         setIsLoading(false)
       }
     }, [])
+  const logout = useCallback(
+    async () => {
+      setIsLoading(true)
+      setError(null)
+
+      try {
+        const response = await AuthService.logout()
+        dispatch(setUser(null))
+        dispatch(setAccessToken(""))
+        return
+      } catch (error: any) {
+        const message = "Logout failed: " + error.response.data?.message || "Logout failed" + error
+        setError(message)
+      }
+
+    }, []
+  )
   return {
     user: authState.user,
     isAuthenticated: authState.isAuthenticated,
@@ -62,5 +79,6 @@ export function useAuth() {
     error,
     login,
     register,
+    logout,
   }
 }

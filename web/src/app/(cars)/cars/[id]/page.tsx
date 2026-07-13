@@ -1,20 +1,28 @@
 'use client'
 import { formatPrice } from "@/lib/utils"
 import Image from "next/image"
-import { CarFront, Armchair, Fuel, ShieldCheckIcon, ShieldAlertIcon, MapPinIcon } from 'lucide-react';
+import Link from "next/link"
+import { StarIcon, CarIcon, CarFront, Armchair, Fuel, ShieldCheckIcon, ShieldAlertIcon, MapPinIcon } from 'lucide-react';
 import Header from "./Header"
 import { Button } from "@/components/ui/button"
 import { useCars } from "@/hooks/useCar"
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useParams } from "next/navigation"
 import Footer from "@/components/modules/landing/Footer";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import CarCard from "@/components/modules/cars/CarCard";
+import { format } from "date-fns";
 interface CarPageProps {
   params: { id: string }
 }
 export default function CarDetailPage() {
   const params = useParams()
   const id = params.id as string
-  const { getCarById, car, error, owner } = useCars()
+  const { getCarById, car, error, cars, pickupTime, dropoffTime, dateRange, daysCount } = useCars()
+  let totalAmount = 0
+  if (car?.dailyPrice) {
+    totalAmount = car.dailyPrice * daysCount
+  }
 
   useEffect(() => {
     if (id) {
@@ -22,7 +30,7 @@ export default function CarDetailPage() {
     }
   }, [getCarById, id])
 
-  if (!car) { return <><Header /> <main><p>Car not found</p></main></> }
+  if (!car) { return <><Header /> <main><p>Loading...</p></main></> }
 
   return (
     <>
@@ -44,11 +52,13 @@ export default function CarDetailPage() {
               <div className="flex rounded-lg bg-white  border-zinc-300 p-2 justify-between border">
                 <div className="flex-1">
                   <p className="text-sm">Pick-up Date</p>
-                  <p className="text-sm font-medium">21:00 Monday, 08/07/2026</p>
+                  <p className="text-sm font-medium">{pickupTime} {dateRange?.from ? format(dateRange.from, "EEEE, dd/MM") : ""}</p>
                 </div>
                 <div className="flex-1 ">
                   <p className="text-sm">Drop-off Date</p>
-                  <p className="text-sm font-medium">21:00 Tuesday, 09/07/2026</p>
+                  <p className="text-sm font-medium">
+                    {dropoffTime} {dateRange?.to ? format(dateRange.to, "EEEE, dd/MM") : ""}
+                  </p>
                 </div>
               </div>
               <div className="space-y-2">
@@ -61,14 +71,23 @@ export default function CarDetailPage() {
               <div className="h-px bg-zinc-300"></div>
               <div className="flex justify-between">
                 <p className="text-sm">Daily Price:</p>
-                <p className="text-sm font-bold">{car.dailyPrice.toLocaleString("vi-VN")}/day</p>
+                <p className="">{car.dailyPrice.toLocaleString("vi-VN")}/day</p>
+              </div>
+              <div className="flex justify-between">
+                <p className="">Total</p>
+                <p className="text-base ">{car.dailyPrice.toLocaleString("vi-VN")} x {daysCount} days</p>
               </div>
               <div className="h-px bg-zinc-300"></div>
               <div className="flex justify-between">
+
                 <p className="font-semibold">Total Amount</p>
-                <p className="text-base font-semibold">{car.dailyPrice.toLocaleString("vi-VN")}</p>
+                <p className="text-base font-semibold">{totalAmount?.toLocaleString("vi-VN")}</p>
               </div>
-              <Button size="lg" className="h-16 font-semibold text-lg bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white" >Choose to Rent</Button>
+              <Button size="lg" className="h-16 font-semibold text-lg bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white" >
+                <Link href="/payment" className="w-full">
+                  Choose to Rent
+                </Link>
+              </Button>
             </div>
 
             <div className="h-px bg-zinc-300"></div>
@@ -211,10 +230,59 @@ export default function CarDetailPage() {
 
             <div className="space-y-4">
               <p className="font-medium text-lg">Car Owner</p>
-              <p>{car.owner.firstName} {car.owner.lastName}</p>
+              <div className="flex  gap-8">
+                <Image
+                  src={car.owner.avatarUrl}
+                  width={80}
+                  height={80}
+                  alt="owner avatar"
+                  className="rounded-full object-cover"
+                />
+                <div className="space-y-2">
+                  {car.owner.firstName ?
+                    <p className="text-lg font-semibold">{car.owner.firstName} {car.owner.lastName}</p>
+                    : <p className="text-lg font-semibold">{car.owner.email}</p>
+                  }
+                  <p className="flex items-center gap-2 font-medium text-sm">
+                    <StarIcon className="text-yellow-300" /> 5.0 - <CarIcon className="text-green-400" /> 1000+ trips
+                  </p>
+                </div>
+              </div>
+              <div>
+                <div className="text-zinc-500 flex justify-between">
+                  <p>Response rate</p>
+                  <p>Respond within</p>
+                  <p>Approval rate</p>
+                </div>
+
+                <div className="font-semibold flex justify-between">
+                  <p>100%</p>
+                  <p>5 minutes</p>
+                  <p>100%</p>
+                </div>
+              </div>
+            </div>
+
+
+            <div className="h-px bg-zinc-300"></div>
+
+            <div className="">
+              <p className="font-medium text-lg">Similar cars</p>
+
+              <Carousel className="w-[90vw]">
+                <CarouselContent className="">
+                  {cars.map((item) => (
+                    <CarouselItem key={item.id} className="basis md:basis-1/2 lg:basis-1/3 xl:basis-1/4 2xl:basis-1/5">
+                      <CarCard car={item} />
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white text-black w-10 h-10 rounded-full shadow-lg border border-gray-200" />
+                <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white text-black w-10 h-10 rounded-full shadow-lg border border-gray-200" />
+              </Carousel>
             </div>
           </div>
-        </div>
+        </div >
       </main >
       <Footer />
     </>

@@ -5,7 +5,7 @@ import { useAuth } from '@/hooks/useAuth'
 import { UserIcon } from 'lucide-react'
 export default function Header() {
   const [isScrolled, setIsScolled] = useState(false)
-  const { user } = useAuth()
+  const { user, logout } = useAuth()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,7 +21,7 @@ export default function Header() {
     console.log('User updated:', user)
   }, [user])
   return (
-    <header className={`fixed top-0 left-0 z-100 w-full p-4 ${isScrolled
+    <header className={`fixed top-0 left-0 z-10 w-full p-4 px-8 ${isScrolled
       ? "bg-white/95 backdrop-blur-sm shadow-md"
       : 'bg-transparent'
       }`}
@@ -29,7 +29,7 @@ export default function Header() {
       < div className="w-full h-full flex items-center justify-between" >
         < Link href="/" className="font-bold text-orange-400 text-4xl" > car.</Link >
         {user ?
-          <UserIcon className={` ${isScrolled ? "text-black" : "text-white"}`} />
+          <Button variant={isScrolled ? "default" : "outline"} onClick={logout}>Logout</Button>
           :
           <Button variant="outline"> <Link href="/auth/login">Login</Link></Button>
         }

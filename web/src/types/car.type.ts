@@ -7,6 +7,7 @@ import { inter } from "@/app/fonts";
 
 export interface CarsState {
   cars: Car[]
+  car?: Car
 }
 export interface Car {
   id: string;
@@ -29,6 +30,12 @@ export interface Car {
     email: string;
     firstName: string;
     lastName: string;
+    avatarUrl: string
+    phone: string
+    isActive: boolean
+    role: string
+    createdAt: string
+    updatedAt: string
   };
 }
 export interface CarQueryParams {

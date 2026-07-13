@@ -114,13 +114,17 @@ export class CarsService {
         include: {
           owner: {
             select: {
+              refreshToken: false,
+              password: false,
               email: true,
               firstName: true,
               lastName: true,
               phone: true,
               avatarUrl: true,
-              refreshToken: false,
-              password: false
+              isActive: true,
+              role: true,
+              createdAt: true,
+              updatedAt: true
             }
           }
         }
@@ -154,13 +158,17 @@ export class CarsService {
       include: {
         owner: {
           select: {
+            refreshToken: false,
+            password: false,
             email: true,
             firstName: true,
             lastName: true,
             phone: true,
             avatarUrl: true,
-            refreshToken: false,
-            password: false
+            isActive: true,
+            role: true,
+            createdAt: true,
+            updatedAt: true
           }
         }
       }
