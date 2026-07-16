@@ -17,9 +17,6 @@ export default function Header() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-  useEffect(() => {
-    console.log('User updated:', user)
-  }, [user])
   return (
     <header className={`fixed top-0 left-0 z-10 w-full p-4 px-8 ${isScrolled
       ? "bg-white/95 backdrop-blur-sm shadow-md"

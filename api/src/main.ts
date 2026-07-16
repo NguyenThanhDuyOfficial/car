@@ -20,7 +20,13 @@ async function bootstrap() {
   )
 
   app.enableCors({
-    origin: process.env.ALLOWED_ORIGINS?.split(',') ?? 'http://localhost:3000',
+    origin: [
+      'http://localhost:3000',
+      'http://localhost:3001',
+      'https://carrentalcomps.vercel.app',
+      'https://car-lh7q.onrender.com',
+      /\.vercel\.app$/,
+      /\.onrender\.com$/,],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Accept']

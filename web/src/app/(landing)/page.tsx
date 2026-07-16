@@ -140,7 +140,7 @@ export default function Home() {
 
         <section className="px-8 flex flex-col gap-4">
           <h1>Drive Car Live Freedom</h1>
-          <p>Experience premium car rentals creafted for comfort, performance, and style.
+          page          <p>Experience premium car rentals creafted for comfort, performance, and style.
             <span className="text-zinc-500">
               Whether it's a quick business trip or a long weekend getaway our fleet is designed to elevate your journey
             </span>
