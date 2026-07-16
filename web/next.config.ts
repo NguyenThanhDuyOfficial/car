@@ -1,7 +1,5 @@
 import type { NextConfig } from "next";
 import path from 'path'
-import { config } from 'slopenv';
-config();
 const nextConfig: NextConfig = {
   /* config options here */
   env: {
