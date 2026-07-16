@@ -6,7 +6,11 @@ settings:
 
 importers:
 
-  .: {}
+  .:
+    dependencies:
+      slopenv:
+        specifier: ^1.0.3
+        version: 1.0.3
 
   api:
     dependencies:
@@ -5139,6 +5143,11 @@ packages:
   slash@3.0.0:
     resolution: {integrity: sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==}
     engines: {node: '>=8'}
+
+  slopenv@1.0.3:
+    resolution: {integrity: sha512-gqUj9L20EEsg3jqI/i251YHVcSJIA4sppG0ih5kgpLJ35cVB2uURFiAyTU7//HdtX/hKcrphGOv9jaxGlRGmYg==}
+    engines: {node: '>=20'}
+    hasBin: true
 
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
@@ -11200,6 +11209,10 @@ snapshots:
   sisteransi@1.0.5: {}
 
   slash@3.0.0: {}
+
+  slopenv@1.0.3:
+    dependencies:
+      dotenv: 17.4.2
 
   source-map-js@1.2.1: {}
 

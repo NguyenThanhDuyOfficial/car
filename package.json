@@ -11,5 +11,8 @@
   },
   "engines": {
     "node": ">=18"
+  },
+  "dependencies": {
+    "slopenv": "^1.0.3"
   }
 }

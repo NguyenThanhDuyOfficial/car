@@ -3,6 +3,8 @@ import { AppModule } from './app.module';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { SwaggerModule } from '@nestjs/swagger';
 import { DocumentBuilder } from '@nestjs/swagger';
+import { config } from 'slopenv';
+config()
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
